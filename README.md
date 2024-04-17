@@ -29,7 +29,7 @@ func TestMain(m *testing.M) {
 	err := con.Setup()
 	assert.NoError(t, err)
 
-    m.Run()
+    	m.Run()
 
 	err = con.TearDown()
 	assert.NoError(t, err)
