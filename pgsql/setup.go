@@ -1,3 +1,4 @@
+// Package pgsql provides functionality for managing a PostgreSQL Docker container for testing purposes.
 package pgsql
 
 import (
@@ -13,12 +14,13 @@ const (
 	DEFAULT_PORT   = 5432
 )
 
+// Config represents the configuration for setting up a PostgreSQL container.
 type Config struct {
-	ImageName  string
-	DBName     string
-	DBUser     string
-	DBPassword string
-	PORT       int32
+	ImageName  string // ImageName is the name of the Docker image to use( use image_name:version)
+    DBName     string // DBName is the name of the database to be created.
+    DBUser     string // DBUser is the username for the database.
+    DBPassword string // DBPassword is the password for the database user if left unset the auth method will be trust.
+    PORT       int32  // PORT is the port on which the PostgreSQL container will expose.
 }
 
 type TestPG struct {
