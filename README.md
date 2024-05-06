@@ -32,27 +32,27 @@ import (
 
 ```go
 func TestMain(m *testing.M) {
-    	con := TestPG{}
+    con := TestPG{}
 	err := con.Setup(nil)
-	assert.NoError(t, err)
+    // wait for postgres to start
+    time.Sleep(3*time.Second)
 
-    	m.Run()
+    m.Run()
 
 	err = con.TearDown()
-	assert.NoError(t, err)
 }
 ```
 ### Config
 
 The `Config` struct is used to configure the setup of the PostgreSQL container. It includes the following fields:
 
-- `ImageName`: The name of the Docker image to use.
-- `DBName`: The name of the database to be created.
-- `DBUser`: The username for the database.
-- `DBPassword`: The password for the database user.
-- `PORT`: The port on which the PostgreSQL container will expose.
+- `ImageName`: The name of the Docker image to use. Default value is "postgres:latest".
+- `DBName`: The name of the database to be created. Default value is "default".
+- `DBUser`: The username for the database. Default value is "root".
+- `DBPassword`: The password for the database user. In default state database is set to trust.
+- `PORT`: The port on which the PostgreSQL container will expose. Default value is 5432.
 
-It is not neccessary for you to set any of these values, if you leave them unset they will have a default value.
+It is not necessary for you to set any of these values, if you leave them unset they will have a default value.
 
 #### Example Usage
 
@@ -64,6 +64,8 @@ config := &testdb.Config{
     DBPassword: "mypassword",
     PORT: 5432,
 }
+con := TestPG{}
+err := con.Setup(config)
 ```
 ### Execute
 The Execute function allows you to run a SQL query inside the PostgreSQL container. It takes a query string as a parameter and executes it within the container. It is recommended to connect to database with whatever library you prefer using database information instead of using this funcion directly. Wait a few seconds before invoking Execute to ensure the database is fully operational.
