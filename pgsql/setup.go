@@ -23,6 +23,7 @@ type Config struct {
     PORT       int32  // PORT is the port on which the PostgreSQL container will expose.
 }
 
+// The basic class for running the database.
 type TestPG struct {
 	containerID string
 }
