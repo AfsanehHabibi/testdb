@@ -27,6 +27,7 @@ type TestPG struct {
 	containerID string
 }
 
+// Runs postgres image with given configuration or default values if config is null.
 func (t *TestPG) Setup(config *Config) error {
 	config = setDefaultConfigValues(config)
 	var passString string
@@ -75,6 +76,7 @@ func setDefaultConfigValues(config *Config) *Config {
 	return config
 }
 
+// Removes the container associated with the class.
 func (t *TestPG) TearDown() error {
 	err := t.stop()
 	if err != nil {
@@ -108,6 +110,7 @@ func (t *TestPG) remove() error {
 	return nil
 }
 
+// Executes the given query on the container associated with the class.
 func (t *TestPG) Execute(query string) error {
 	cmd := exec.Command("docker", "exec", CONTAINER_NAME,
 		"psql", "-p", "5432", "-U", DEFAULT_USER, "-d", DEFAULT_DB, "-c", query)
