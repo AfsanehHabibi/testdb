@@ -11,6 +11,13 @@ This package provides a simple and convenient way to set up a PostgreSQL instanc
 
 ## Installation
 
+### Prerequisite
+You should have a postgres image, if you don't you can use the official postgres image using below command:
+```bash
+docker pull postgres:latest
+```
+
+### Package installation
 To install TestDB, use `go get`:
 
 ```bash
